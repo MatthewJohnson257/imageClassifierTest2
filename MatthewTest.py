@@ -8,11 +8,7 @@ from keras import backend as K
 import numpy as np
 from keras.preprocessing import image
 
-import os
 
-cwd = os.getcwd()  # Get the current working directory (cwd)
-files = os.listdir(cwd)  # Get all the files in that directory
-print("Files in %r: %s" % (cwd, files))
 
 
 img_width, img_height = 200, 200
@@ -21,7 +17,7 @@ train_data_dir = 'data/train'
 validation_data_dir = 'data/validation'
 nb_train_samples = 300
 nb_validation_samples = 30
-epochs = 2
+epochs = 10
 batch_size = 10
 
 if K.image_data_format() == 'channels_first':
@@ -75,7 +71,7 @@ model.add(Activation('sigmoid'))
 
 model.summary()
 
-model.compile(loss = 'mean_squared_error', optimizer = 'rmsprop', metrics = ['accuracy'])
+model.compile(loss = 'binary_crossentropy', optimizer = 'rmsprop', metrics = ['accuracy'])
 
 
 model.fit_generator(
@@ -87,6 +83,21 @@ model.fit_generator(
 
 
 model.save_weights('first_try.hS')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 img_pred = image.load_img('data/test/3_1_1_20170109191427473.jpg.chip.jpg', target_size = (200,200))
 img_pred = image.img_to_array(img_pred)
